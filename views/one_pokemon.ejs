@@ -44,6 +44,17 @@
 
       <div class="pokemon-content mdl-layout__content">
         <div class="app-content pokemon-wear-section">
+          <% for(let i=0; i<onePokemon.length; i++){ %>
+          <h1>Page for <%= onePokemon[0].name %></h1>
+          <% } %>
+          <% for(let i=0; i<onePokemon.length; i++){ %>
+            <p>
+            Combat Power: <%= onePokemon[i].cp %><BR>
+            NEED TO INCLUDE TRAINER NAME JUST SAYIN
+          </p>
+            <% } %>
+
+
         </div>
 
         <footer class="pokemon-footer mdl-mega-footer">

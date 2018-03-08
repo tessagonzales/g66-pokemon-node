@@ -44,6 +44,22 @@
 
       <div class="pokemon-content mdl-layout__content">
         <div class="app-content pokemon-wear-section">
+
+          <% for(let i=0;i<onePokemon.length;i++) {%>
+
+            <h1>Edit ya Pokemon, <%= onePokemon[i].name %></h1>
+            <form action="/pokemon/edit/<%= onePokemon[i].id %>" method="post">
+              <input type="text" name="name" value="<%= onePokemon[i].name %>">
+              <input type="number" name="cp" value="<%= onePokemon[i].cp %>">
+                <select name="trainer_id">
+                  <% for(let i=0;i<trainers.length;i++){ %>
+                  <option value="<%= trainers[i].id %>"><%= trainers[i].name %></option>
+                  <% } %>
+                </select>
+                <button type="submit">Update Pokemon!</button>
+                  </form>
+                    <% } %>
+
         </div>
 
         <footer class="pokemon-footer mdl-mega-footer">

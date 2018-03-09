@@ -39,6 +39,9 @@ module.exports = function(app){
   // add to gym and cookie
   app.get('/pokemon/gym/:id', index.addToGym)
 
+  //remove pokemon from gym
+  app.get('/pokemon/remove/:id', index.removeFromGym)
+
 
   /////////TRAINERS/////////
   // get page to individual trainer by id

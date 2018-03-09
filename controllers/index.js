@@ -18,14 +18,16 @@ module.exports = {
   //get pokemon page and all pokemon
   pokemonPage: (req, res)=>{
     if(!req.session.gym){
-      req.session.gym= {};
+      req.session.gym= [];
     }
 
     knex('pokemon')
     .orderBy('id')
     .then((results)=>{
-      console.log('gym:', req.session.gym)
-      res.render('pokemon', {pokemon:results, gym:req.session.gym})
+      req.session.save(()=>{
+        console.log('gym:', req.session.gym)
+        res.render('pokemon', {pokemon:results, gym:req.session.gym})
+      })
     })
   },
 
@@ -112,17 +114,39 @@ oneTrainer: (req, res) => {
   })
 },
 
-//WTF IS GOING ONNNNNNNNNNNN
 // add to gym and cookie
 addToGym: (req, res) => {
   knex('pokemon')
   .where('id', req.params.id)
-  .then((results)=>{
-    req.session.gym = results[0]
-    req.session.save(()=>{
-      res.redirect('/pokemon')
-    })
+  .update({
+    in_gym: true
   })
+
+  .then(()=>{
+    req.session.gym.push(req.params.id)
+      res.redirect('/pokemon')
+  })
+},
+
+//remove pokemon from gym
+removeFromGym: (req, res) => {
+  let gym = req.session.gym;
+  for(let i=0; i<gym.length; i++){
+    if(gym[i] === req.params.id){
+      gym.splice(i, 1);
+    }
+  }
+
+  knex('pokemon')
+    .where('id', req.params.id)
+    .update({
+      in_gym: false
+    })
+    .then(()=>{
+      req.session.save(() => {
+        res.redirect('/pokemon');
+      })
+    })
 },
 
 

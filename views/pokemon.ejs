@@ -50,10 +50,12 @@
              <b>Trainer id:</b> <%= pokemon[i].trainer_id %>
             <b>Cp:</b> <%= pokemon[i].cp %>
             <b>In Gym:</b> <%= pokemon[i].in_gym %>
-            <a href='/pokemon/edit/<%= pokemon[i].id %>'><button>edit</button></a>
-            <a href='/pokemon/delete/<%= pokemon[i].id %>'><button>delete</button></a>
-            <BR><BR>
+            <a href='/pokemon/edit/<%= pokemon[i].id %>'>edit</a>
+            <a href='/pokemon/delete/<%= pokemon[i].id %>'>delete</a>
+            <a href="/pokemon/gym/<%= pokemon[i].id %>">Add to Gym!</a>
+            <br><br>
               <% } %>
+
 
 
 

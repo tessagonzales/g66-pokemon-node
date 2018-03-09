@@ -9,6 +9,7 @@ module.exports = {
   //get trainers page
   trainersPage: (req, res) => {
     knex('trainers')
+    .orderBy('id')
     .then((results)=>{
       res.render('trainers', {trainers:results})
     })
@@ -16,16 +17,15 @@ module.exports = {
 
   //get pokemon page and all pokemon
   pokemonPage: (req, res)=>{
-    if(!req.session.pokemon){
-      req.session.pokemon= {};
-    }
-    if(!req.session.trainers){
-      req.session.trainers={};
+    if(!req.session.gym){
+      req.session.gym= {};
     }
 
     knex('pokemon')
+    .orderBy('id')
     .then((results)=>{
-      res.render('pokemon', {pokemon:results})
+      console.log('gym:', req.session.gym)
+      res.render('pokemon', {pokemon:results, gym:req.session.gym})
     })
   },
 
@@ -49,11 +49,7 @@ module.exports = {
       in_gym: false
     }, "*")
       .then((results)=>{
-        req.session.pokemon = results[0]
-        //console.log(req.session.pokemon)
-        req.session.save(()=>{
           res.redirect('/pokemon')
-        })
       })
   },
 
@@ -98,11 +94,7 @@ module.exports = {
       trainer_id: req.body.trainer_id
     }, '*')
     .then((results)=>{
-      req.session.pokemon = results[0]
-      //console.log(req.session.pokemon)
-      req.session.save(()=>{
         res.redirect('/pokemon')
-      })
     })
   },
 
@@ -111,9 +103,27 @@ oneTrainer: (req, res) => {
   knex('trainers')
   .where('id', req.params.id)
   .then((results)=> {
-    res.render('one_trainer', {trainer:results})
+  knex('pokemon')
+  .where('trainer_id', req.params.id)
+  .then((data)=>{
+    //console.log(data)
+    res.render('one_trainer', {trainer:results, pokemon:data})
   })
-}
+  })
+},
+
+//WTF IS GOING ONNNNNNNNNNNN
+// add to gym and cookie
+addToGym: (req, res) => {
+  knex('pokemon')
+  .where('id', req.params.id)
+  .then((results)=>{
+    req.session.gym = results[0]
+    req.session.save(()=>{
+      res.redirect('/pokemon')
+    })
+  })
+},
 
 
 };

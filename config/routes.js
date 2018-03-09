@@ -36,6 +36,9 @@ module.exports = function(app){
   // update pokemon
   app.post('/pokemon/edit/:id', index.editPokemonForm)
 
+  // add to gym and cookie
+  app.get('/pokemon/gym/:id', index.addToGym)
+
 
   /////////TRAINERS/////////
   // get page to individual trainer by id

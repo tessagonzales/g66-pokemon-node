@@ -47,4 +47,10 @@ module.exports = function(app){
   // get page to individual trainer by id
   app.get('/trainers/:id', index.oneTrainer)
 
+
+  /////////GYM/////////
+  // POST pokemon from dropdown for battle
+  app.post('/gym/:id', index.gymBattle)
+
+
 }

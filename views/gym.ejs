@@ -104,6 +104,13 @@
                                                   <% } %>
                                                   <% } %>
 
+
+                                                   <% for(let i=0; i<allPokemon.length; i++){ %>
+                                                    <% if(parseInt(gym[0]) === allPokemon[i].id && parseInt(gym[1]) === allPokemon[i].id && allPokemon[i].cp > allPokemon[i].cp)  { %>
+                                                      WINNER!
+                                                    <% } %>
+                                                    <% } %>
+
       </div>
 
       <footer class="pokemon-footer mdl-mega-footer">

@@ -61,7 +61,7 @@
                 <%= pokemon[i].in_gym %>
                   <a href='/pokemon/edit/<%= pokemon[i].id %>'>edit</a>
                   <a href='/pokemon/delete/<%= pokemon[i].id %>'>delete</a>
-                  <% if(!pokemon[i].in_gym && gym.length < 2) { %>
+                  <% if(gym.length < 2 && !pokemon[i].in_gym ) { %>
                     <a href="/pokemon/gym/<%= pokemon[i].id %>">Add to Gym!</a>
                     <% } else if (!pokemon[i].in_gym){ %>
                       Gym is Full
